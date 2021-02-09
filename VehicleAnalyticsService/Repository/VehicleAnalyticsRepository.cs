@@ -6,6 +6,8 @@ using VehicleAnalyticsService.Models.ResponseModel;
 using Microsoft.Extensions.Options;
 using Obfuscation;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace VehicleAnalyticsService.Repository
 {
@@ -19,18 +21,25 @@ namespace VehicleAnalyticsService.Repository
             _context = context;
         }
 
-        public dynamic InsertOpertionLogs(OperationLogsDto operationLogsDto)
+        public dynamic InsertOpertionLogs(List<OperationLogsDto> operationLogsDtoList)
         {
-            if (string.IsNullOrEmpty(operationLogsDto.DeviceId) || operationLogsDto == null)
+            if (!operationLogsDtoList.Any() || operationLogsDtoList == null)
                 throw new ArgumentNullException(CommonMessage.InvalidData);
 
-            OperationLogs operationLog = new OperationLogs();
-            operationLog.DeviceId = ObfuscationClass.DecodeId(Convert.ToInt32(operationLogsDto.DeviceId), _appSettings.PrimeInverse);
-            operationLog.Duration = operationLogsDto.Duration;
-            operationLog.Date = operationLogsDto.Date;
-            operationLog.CreatedAt = DateTime.Now;
+            List<OperationLogs> operationLogsList = new List<OperationLogs>();
 
-            return operationLog;
+            foreach (var operationLogsDto in operationLogsDtoList)
+            {
+                operationLogsList.Add(new OperationLogs
+                {
+                    DeviceId = ObfuscationClass.DecodeId(Convert.ToInt32(operationLogsDto.DeviceId), _appSettings.PrimeInverse),
+                    Duration = operationLogsDto.Duration,
+                    Date = operationLogsDto.Date,
+                    CreatedAt = DateTime.Now
+                });
+            }
+
+            return operationLogsList;
         }
     }
 }

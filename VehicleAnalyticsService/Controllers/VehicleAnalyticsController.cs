@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using VehicleAnalyticsService.Abstraction;
 using VehicleAnalyticsService.Models;
 using VehicleAnalyticsService.Models.DBModels;
@@ -23,12 +24,12 @@ namespace VehicleAnalyticsService.Controllers
 
         [HttpPost]
         [Route("operations/devices/logs")]
-        public async Task<IActionResult> PostDeviceRunningTimes(OperationLogsDto operationLogsDto)
+        public async Task<IActionResult> PostOpertionLogs(List<OperationLogsDto> operationLogsDtoList)
         {
             try
             {
-                OperationLogs operationLogs = _vehicleAnalyticsRepository.InsertOpertionLogs(operationLogsDto);
-                await _context.OperationLogs.AddAsync(operationLogs);
+                List<OperationLogs> operationLogsList = _vehicleAnalyticsRepository.InsertOpertionLogs(operationLogsDtoList);
+                await _context.OperationLogs.AddRangeAsync(operationLogsList);
                 await _context.SaveChangesAsync();
             }
             catch (ArgumentNullException ex)

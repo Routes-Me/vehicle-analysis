@@ -1,9 +1,10 @@
-﻿using VehicleAnalyticsService.Models.ResponseModel;
+﻿using System.Collections.Generic;
+using VehicleAnalyticsService.Models.ResponseModel;
 
 namespace VehicleAnalyticsService.Abstraction
 {
     public interface IVehicleAnalyticsRepository
     {
-        dynamic InsertOpertionLogs(OperationLogsDto operationLogsDto);
+        dynamic InsertOpertionLogs(List<OperationLogsDto> operationLogsDtoList);
     }
 }
