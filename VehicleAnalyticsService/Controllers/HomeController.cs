@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace VehicleAnalyticsService.Controllers
@@ -24,7 +20,7 @@ namespace VehicleAnalyticsService.Controllers
         [Obsolete]
         public string Get()
         {
-            return "Analytics service started successfully. Environment - " + _hostingEnv.EnvironmentName + "";
+            return "Vehicle Analytics service started successfully. Environment - " + _hostingEnv.EnvironmentName + "";
         }
     }
 }

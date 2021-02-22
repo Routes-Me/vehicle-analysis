@@ -1,7 +1,5 @@
 
 using VehicleAnalyticsService.Abstraction;
-using VehicleAnalyticsService.Helper.CronJobServices;
-using VehicleAnalyticsService.Helper.CronJobServices.CronJobExtensionMethods;
 using VehicleAnalyticsService.Models.Common;
 using VehicleAnalyticsService.Models.DBModels;
 using VehicleAnalyticsService.Repository;
@@ -47,12 +45,6 @@ namespace VehicleAnalyticsService
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-
-            services.AddCronJob<AnalyticSynced>(c =>
-            {
-                c.TimeZoneInfo = TimeZoneInfo.Local;
-                c.CronExpression = @"0 */5 * * *"; // Run every 5 hours
-            });
 
             services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
