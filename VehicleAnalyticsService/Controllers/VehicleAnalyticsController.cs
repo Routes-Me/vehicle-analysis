@@ -38,8 +38,7 @@ namespace VehicleAnalyticsService.Controllers
             }
             catch (Exception ex)
             {
-                dynamic errorResponse = ReturnResponse.ExceptionResponse(ex);
-                return StatusCode(StatusCodes.Status400BadRequest, errorResponse.message);
+                return StatusCode(StatusCodes.Status400BadRequest, CommonMessage.ExceptionMessage + ex.Message);
             }
             dynamic response = ReturnResponse.SuccessResponse(CommonMessage.OperationLogsInserted, true);
             return StatusCode((int)response.statusCode, response);
