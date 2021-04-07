@@ -10,8 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace VehicleAnalyticsService.Controllers
 {
-    [Route("api")]
     [ApiController]
+    [ApiVersion( "1.0" )]
+    [Route("v{version:apiVersion}/")]
     public class VehicleAnalyticsController : ControllerBase
     {
         private readonly IVehicleAnalyticsRepository _vehicleAnalyticsRepository;
@@ -41,7 +42,7 @@ namespace VehicleAnalyticsService.Controllers
                 return StatusCode(StatusCodes.Status400BadRequest, CommonMessage.ExceptionMessage + ex.Message);
             }
             dynamic response = ReturnResponse.SuccessResponse(CommonMessage.OperationLogsInserted, true);
-            return StatusCode((int)response.statusCode, response);
+            return StatusCode(response.statusCode, response);
         }
     }
 }
