@@ -4,7 +4,7 @@ using VehicleAnalyticsService.Models.Common;
 using VehicleAnalyticsService.Models.DBModels;
 using VehicleAnalyticsService.Models.ResponseModel;
 using Microsoft.Extensions.Options;
-using Obfuscation;
+using RoutesSecurity;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -32,7 +32,7 @@ namespace VehicleAnalyticsService.Repository
             {
                 operationLogsList.Add(new OperationLogs
                 {
-                    DeviceId = ObfuscationClass.DecodeId(Convert.ToInt32(operationLogsDto.DeviceId), _appSettings.PrimeInverse),
+                    DeviceId = Obfuscation.Decode(operationLogsDto.DeviceId),
                     Duration = operationLogsDto.Duration,
                     Date = operationLogsDto.Date,
                     CreatedAt = DateTime.Now
